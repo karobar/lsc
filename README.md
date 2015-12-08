@@ -37,4 +37,4 @@ To view the comment(s) you've added, run `lsc` in the directory containing the f
     -rw-rw-r--.     0 Dec 8 10:50 sugar.txt [1;31mwhite[0m
     -rw-rw-r--.     0 Dec 8 10:50 vanilla.txt [1;31mimitation tastes nasty[0m
     
-When viewed in a terminal, this will produce nice coloring of comments in red, executable files in green, directories in blue, and links in cyan
+When viewed in a terminal, this will produce nice coloring of comments in red, executable files in green, directories in blue, and links in cyan.
