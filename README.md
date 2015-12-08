@@ -5,7 +5,7 @@ Add both files to the /bin directory of any Unix-like system where extended attr
 
 To add a comment to a file, just enter: 
 ```bash
-com <file> "<comment>"
+com <file> <comment>
 ```
 
 For example: 
