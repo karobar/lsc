@@ -1,0 +1,49 @@
+#!/bin/bash
+ls -lah $f |
+sed '1d' |  #remove the first line
+
+awk '{ print $1 " "  $5 " " $6 " " $7 " " $8 " " $9}' | 
+
+column -t  | 
+
+awk '{
+	line = "" 
+	linkness = ""
+	directoryness = ""
+	executableness = ""	
+
+	"(attr -q -g comment " $6 " 2>/dev/null)" | getline line
+	close("(attr -q -g comment " $6 " 2>/dev/null)")
+	
+	"(if [[ -L " $6 " ]]; then date; fi)" | getline linkness
+        close("(if [ -L " $6 " ] then date fi)")
+	"(if [[ -d " $6 " ]]; then date; fi)" | getline directoryness
+	close("(if [ -d " $6 " ] then date fi)")
+	"(if [[ -x " $6 " ]]; then date; fi)" | getline executableness
+	close("(if [ -d " $6 " ] then date fi)")
+
+	totalRegEx = "%s %5s %s %s %s"
+	
+	if(length(linkness) > 0) {
+                totalRegEx = totalRegEx " \033[1;36m%s\033[0m"
+        }
+	else if(length(directoryness) > 0) {
+		totalRegEx = totalRegEx " \033[1;34m%s\033[0m"
+	}
+	else if(length(executableness) > 0) {
+		totalRegEx = totalRegEx " \033[1;32m%s\033[0m";
+	}
+	else {
+		totalRegEx = totalRegEx " %s";
+	}
+	
+	if(length(line)>0) {
+		totalRegEx = totalRegEx " \033[1;31m%s\033[0m\n";
+		printf(totalRegEx, $1, $2, $3, $4, $5, $6, line);
+	}
+	else {
+		#print "regex: (" totalRegEx ")"
+		totalRegEx = totalRegEx "\n"
+		printf(totalRegEx, $1, $2, $3, $4, $5, $6)
+	}	
+}'
