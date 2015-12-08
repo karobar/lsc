@@ -15,7 +15,7 @@ com foo.txt "This could be anything you'd like"
 
 To change a comment, do another `com`. You can remove a comment this way too:
 ```bash
-com foo.txt "I changed my mind"`
+com foo.txt "I changed my mind"
 ```
 
 ```bash
